@@ -1,19 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
 /**
  *
- * @author ASUS
+ * @author Ilham Fathurrohman
  */
-public class LoginAdmin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LoginAdmin
-     */
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
+public class LoginAdmin extends javax.swing.JFrame {
+    // deklarasi
+    Connection con;
+    Statement stat;
+    ResultSet rs;
+    String sql;
+
     public LoginAdmin() {
         initComponents();
+        //pemanggilan fungsi koneksi database yang sudah kita buat pada class koneksi.java
+        koneksi DB = new koneksi();
+        DB.config();
+        con = DB.con;
+        stat = DB.stm;
     }
 
     /**
@@ -114,6 +125,11 @@ public class LoginAdmin extends javax.swing.JFrame {
         jPanel1.add(NamaPengguna, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 130, -1));
 
         Btn_masuk.setText("Masuk");
+        Btn_masuk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_masukActionPerformed(evt);
+            }
+        });
         jPanel1.add(Btn_masuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -129,6 +145,34 @@ public class LoginAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Btn_masukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_masukActionPerformed
+                try {
+            sql = "SELECT * FROM admin WHERE username='"+txt_name.getText()+"' AND password='"+txt_pass.getText()+"'";
+            rs = stat.executeQuery(sql);
+            if(rs.next()){
+                if(txt_name.getText().equals(rs.getString("username")) && txt_pass.getText().equals(rs.getString("password"))){
+                    JOptionPane.showMessageDialog(null, "berhasil login");
+                }
+            }else{
+                    JOptionPane.showMessageDialog(null, "username atau password salah");
+                }
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+
+    private static class txt_name {
+
+        public txt_name() {
+        }
+    }
+
+
+
+
+
+    }//GEN-LAST:event_Btn_masukActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,7 +199,7 @@ public class LoginAdmin extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(LoginAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+        //</editor-fold
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
