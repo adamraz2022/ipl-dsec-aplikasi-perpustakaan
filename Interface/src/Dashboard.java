@@ -32,7 +32,7 @@ public class Dashboard extends javax.swing.JFrame {
         Btn_kontak = new javax.swing.JButton();
         Btn_info = new javax.swing.JButton();
         Btn_profil = new javax.swing.JButton();
-        masuk = new javax.swing.JComboBox<>();
+        masuk = new javax.swing.JComboBox<String>();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,7 +53,12 @@ public class Dashboard extends javax.swing.JFrame {
 
         Btn_profil.setText("PROFIL");
 
-        masuk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MASUK", "Masuk Admin", "Masuk Masyarakat" }));
+        masuk.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "MASUK", "Masuk Admin", "Masuk Masyarakat" }));
+        masuk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                masukActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -105,6 +110,10 @@ public class Dashboard extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void masukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masukActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_masukActionPerformed
 
     /**
      * @param args the command line arguments
