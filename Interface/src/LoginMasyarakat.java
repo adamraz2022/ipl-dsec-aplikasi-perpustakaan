@@ -1,3 +1,8 @@
+
+import java.awt.HeadlessException;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -114,6 +119,11 @@ public class LoginMasyarakat extends javax.swing.JFrame {
         jPanel1.add(NamaPengguna, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 130, -1));
 
         Btn_masuk.setText("Masuk");
+        Btn_masuk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_masukActionPerformed(evt);
+            }
+        });
         jPanel1.add(Btn_masuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -129,6 +139,22 @@ public class LoginMasyarakat extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Btn_masukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_masukActionPerformed
+        try {
+            sql = "SELECT * FROM masyarakat WHERE username='"+LoginAdmin.txt_name.getText()+"' AND password='"+txt_pass.getText()+"'";
+            rs = stat.executeQuery(sql);
+            if(rs.next()){
+                if(LoginAdmin.txt_name.getText().equals(rs.getString("username")) && txt_pass.getText().equals(rs.getString("password"))){
+                    JOptionPane.showMessageDialog(null, "berhasil login");
+                }
+            }else{
+                    JOptionPane.showMessageDialog(null, "username atau password salah");
+                }
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_Btn_masukActionPerformed
 
     /**
      * @param args the command line arguments
